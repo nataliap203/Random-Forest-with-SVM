@@ -1,8 +1,6 @@
-import numpy as np
 import pandas as pd
-from collections import Counter
 from ID3.node import Node
-from ID3.utils import calculate_entropy, calculate_info_gain, get_majority_class, find_best_split
+from ID3.utils import get_majority_class, find_best_split
 
 
 def build_tree(data: pd.DataFrame, feature_names: list, target_name: str, current_depth: int = 0, max_depth=None):

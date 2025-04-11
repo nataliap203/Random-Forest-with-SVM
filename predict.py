@@ -1,6 +1,4 @@
 import pandas as pd
-
-from ID3.build_tree import build_tree
 from ID3.node import Node
 
 def predict_sample(node: Node, sample: pd.Series):
