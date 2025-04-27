@@ -1,8 +1,9 @@
 from ID3.build_tree import build_tree
+from ID3.predict import predict
 from SVM.svm import train_svm, predict_SVM
 import pandas as pd
+import random
 import numpy as np
-from predict import predict
 # from sklearn.model_selection import train_test_split
 # from sklearn.metrics import accuracy_score
 
@@ -20,13 +21,17 @@ class RandomForrest:
 
     def train(self):
         for i in range(self.num_ID3):
-            model = build_tree(self.data, list(self.data.columns[:-1]), self.data.columns[-1])
+            all_features = list(self.data.columns[:-1])
+            subset_len = np.floor(np.sqrt(len(all_features)))
+            subset_len = max(1, subset_len)
+            features_subset = random.sample(all_features, subset_len)
+            model = build_tree(self.data, features_subset, self.data.columns[-1])
             self.ID3_models.append(model)
 
         for i in range(self.num_SVMS):
             model = train_svm(self.data, self.regularisation, self.kernel, self.degree, self.gamma)
             self.SVM_models.append(model)
-        
+
     def predict(self, X: pd.DataFrame):
         predictions = []
         for model in self.ID3_models:
@@ -37,7 +42,7 @@ class RandomForrest:
             pred = predict_SVM(model, X)
             predictions.append(pred)
         return predictions
-    
+
     def predict_majority_vote(self, X: pd.DataFrame):
         predictions = self.predict(X)
         final_predictions = []
@@ -50,7 +55,7 @@ class RandomForrest:
                     votes[pred[i]] += 1
             final_predictions.append(max(votes, key=votes.get))
         return final_predictions
-    
+
 
 # mean1 = 55
 # std_dev1 = 10
