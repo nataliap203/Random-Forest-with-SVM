@@ -4,11 +4,44 @@ from SVM.svm import train_svm, predict_SVM
 import pandas as pd
 import random
 import numpy as np
+from sklearn.preprocessing import LabelEncoder
 # from sklearn.model_selection import train_test_split
 # from sklearn.metrics import accuracy_score
 
-class RandomForrest:
+class RandomForest:
     def __init__(self, num_ID3, num_SVMS, regularisation: int, kernel: str, degree: int, gamma:str, data: pd.DataFrame):
+
+        self._svm_data = data.__deepcopy__()
+        self._id3_data = data.__deepcopy__()
+
+        
+
+
+        categorical_columns = []
+        for label, content in list(self._svm_data.items())[:-1]:
+            if pd.api.types.is_object_dtype(content):
+                categorical_columns.append(label)
+
+        
+        if len(categorical_columns) != 0:
+            svm_cat = pd.get_dummies(self._svm_data[categorical_columns])
+            self._svm_data.drop(columns=categorical_columns, inplace=True)
+            self._svm_data = svm_cat.join(self._svm_data)
+
+            for column in categorical_columns:
+                le = LabelEncoder()
+                self._id3_data[column] = le.fit_transform(self._id3_data[column])
+
+
+        self.encoder = LabelEncoder()
+        last_col = self._svm_data.iloc[:, -1]
+        self.encoder.fit(last_col)
+        transformed_col = self.encoder.transform(last_col)
+
+        self._id3_data.iloc[:, -1] = transformed_col
+    
+
+    
         self.num_ID3 = num_ID3
         self.num_SVMS = num_SVMS
         self.regularisation = regularisation
@@ -27,26 +60,51 @@ class RandomForrest:
     def train(self):
         for i in range(self.num_ID3):
             features_subset = random.sample(self.feature_names, self.subset_len)
-            bootstrap_sample = self.data.sample(n=len(self.data), replace=True, random_state=i)
+            bootstrap_sample = self._id3_data.sample(n=len(self.data), replace=True, random_state=i)
 
             model = build_tree(bootstrap_sample, features_subset, self.data.columns[-1])
             self.ID3_models.append(model)
 
         for i in range(self.num_SVMS):
-            bootstrap_sample = self.data.sample(n=len(self.data), replace=True, random_state=self.num_ID3 + i)
+            bootstrap_sample = self._svm_data.sample(n=len(self.data), replace=True, random_state=self.num_ID3 + i)
+
 
             model = train_svm(bootstrap_sample, self.regularisation, self.kernel, self.degree, self.gamma)
             self.SVM_models.append(model)
 
     def predict(self, X: pd.DataFrame):
+        X_id3 = X.__deepcopy__()
+        X_svm = X.__deepcopy__()  
+
+        if self._svm_data.isna().any().any():
+            print("Warning: Input data contains NaN values. Imputing missing values...")
+
+        categorical_columns = []
+        for label, content in  list(X.items()):
+            if pd.api.types.is_object_dtype(content):
+                categorical_columns.append(label)
+
+        if len(categorical_columns) != 0:
+
+            svm_cat = pd.get_dummies( X_svm[categorical_columns])
+            X_svm.drop(columns=categorical_columns, inplace=True)
+            X_svm = svm_cat.join(X_svm)
+
+            for column in categorical_columns:
+                le = LabelEncoder()
+                X_id3[column] = le.fit_transform(X[column])
+        
+        if self._svm_data.isna().any().any():
+            print("Warning: Input data contains NaN values. Imputing missing values...")
         predictions = []
         for model in self.ID3_models:
-            pred = predict(model, X)
+            pred = predict(model, X_id3)
             predictions.append(pred)
 
         for model in self.SVM_models:
-            pred = predict_SVM(model, X)
-            predictions.append(pred)
+            pred = predict_SVM(model, X_svm)
+            # pred = predict_SVM(model, X_id3)
+            predictions.append(self.encoder.transform(pred))
         return predictions
 
     def predict_majority_vote(self, X: pd.DataFrame):
