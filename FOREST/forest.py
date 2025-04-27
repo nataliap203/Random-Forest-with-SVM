@@ -19,17 +19,23 @@ class RandomForrest:
         self.ID3_models = []
         self.SVM_models = []
 
+        self.target_name = data.columns[-1]
+        self.feature_names = list(data.columns[:-1])
+
+        self.subset_len = max(1, int(np.floor(np.sqrt(len(self.feature_names)))))
+
     def train(self):
         for i in range(self.num_ID3):
-            all_features = list(self.data.columns[:-1])
-            subset_len = np.floor(np.sqrt(len(all_features)))
-            subset_len = max(1, subset_len)
-            features_subset = random.sample(all_features, subset_len)
-            model = build_tree(self.data, features_subset, self.data.columns[-1])
+            features_subset = random.sample(self.feature_names, self.subset_len)
+            bootstrap_sample = self.data.sample(n=len(self.data), replace=True, random_state=i)
+
+            model = build_tree(bootstrap_sample, features_subset, self.data.columns[-1])
             self.ID3_models.append(model)
 
         for i in range(self.num_SVMS):
-            model = train_svm(self.data, self.regularisation, self.kernel, self.degree, self.gamma)
+            bootstrap_sample = self.data.sample(n=len(self.data), replace=True, random_state=self.num_ID3 + i)
+
+            model = train_svm(bootstrap_sample, self.regularisation, self.kernel, self.degree, self.gamma)
             self.SVM_models.append(model)
 
     def predict(self, X: pd.DataFrame):
