@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from ID3.node import Node
 from ID3.utils import find_best_split, get_majority_class
 
@@ -70,11 +71,11 @@ class ID3():
         try:
             self._target_name = y.name
             if self._target_name is None:
-                 self._target_name = 'target'
-                 y.name = self._target_name
+                self._target_name = 'target'
+                y.name = self._target_name
         except AttributeError:
-             self._target_name = 'target'
-             y.name = self._target_name
+            self._target_name = 'target'
+            y.name = self._target_name
 
         data = pd.concat([X, y], axis=1)
 
@@ -122,4 +123,4 @@ class ID3():
             prediction = self._predict_sample(self.root, row)
             predictions.append(prediction)
 
-        return predictions
+        return np.array(predictions)
