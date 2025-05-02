@@ -2,3 +2,5 @@ __pycache__
 uv.lock
 .python_version
 DATA/
+venv312/
+.vscode/
