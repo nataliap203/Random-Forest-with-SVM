@@ -1,0 +1,120 @@
+###### CANCER ######
+
+#############################################################################
+Test case for 0 ID3 trees and 10 SVM classifiers
+
+Mean Accuracy: 0.9518
+Standard Deviation: 0.0044
+Best Score: 0.9561
+Worst Score: 0.9474
+
+Test Accuracy: 0.9518
+
+Confusion Matrix:
+------------------------------------------
+|  Predicted \ Actual  |   M    |   B    |
+------------------------------------------
+|          M           |   73   |   9    |
+------------------------------------------
+|          B           |   2    |  144   |
+------------------------------------------
+
+Recall score: 0.9518
+Precision score: 0.9527
+F1 score: 0.9512
+
+
+#############################################################################
+Test case for 2 ID3 trees and 8 SVM classifiers
+
+Mean Accuracy: 0.9518
+Standard Deviation: 0.0044
+Best Score: 0.9561
+Worst Score: 0.9474
+
+Test Accuracy: 0.9518
+
+Confusion Matrix:
+------------------------------------------
+|  Predicted \ Actual  |   M    |   B    |
+------------------------------------------
+|          M           |   73   |   9    |
+------------------------------------------
+|          B           |   2    |  144   |
+------------------------------------------
+
+Recall score: 0.9518
+Precision score: 0.9527
+F1 score: 0.9512
+
+
+#############################################################################
+Test case for 5 ID3 trees and 5 SVM classifiers
+
+Mean Accuracy: 0.9518
+Standard Deviation: 0.0044
+Best Score: 0.9561
+Worst Score: 0.9474
+
+Test Accuracy: 0.9518
+
+Confusion Matrix:
+------------------------------------------
+|  Predicted \ Actual  |   M    |   B    |
+------------------------------------------
+|          M           |   73   |   9    |
+------------------------------------------
+|          B           |   2    |  144   |
+------------------------------------------
+
+Recall score: 0.9518
+Precision score: 0.9527
+F1 score: 0.9512
+
+
+#############################################################################
+Test case for 7 ID3 trees and 3 SVM classifiers
+
+Mean Accuracy: 0.9518
+Standard Deviation: 0.0044
+Best Score: 0.9561
+Worst Score: 0.9474
+
+Test Accuracy: 0.9518
+
+Confusion Matrix:
+------------------------------------------
+|  Predicted \ Actual  |   M    |   B    |
+------------------------------------------
+|          M           |   72   |   10   |
+------------------------------------------
+|          B           |   1    |  145   |
+------------------------------------------
+
+Recall score: 0.9518
+Precision score: 0.9538
+F1 score: 0.9511
+
+
+#############################################################################
+Test case for 10 ID3 trees and 0 SVM classifiers
+
+Mean Accuracy: 0.9693
+Standard Deviation: 0.0132
+Best Score: 0.9825
+Worst Score: 0.9561
+
+Test Accuracy: 0.9693
+
+Confusion Matrix:
+------------------------------------------
+|  Predicted \ Actual  |   M    |   B    |
+------------------------------------------
+|          M           |   76   |   6    |
+------------------------------------------
+|          B           |   1    |  145   |
+------------------------------------------
+
+Recall score: 0.9693
+Precision score: 0.9699
+F1 score: 0.9691
