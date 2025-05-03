@@ -8,15 +8,13 @@ Standard Deviation: 0.0000
 Best Score: 1.0000
 Worst Score: 1.0000
 
-Test Accuracy: 1.0000
-
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1604  |   0    |
+|          p           |  4034  |   0    |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
 Recall score: 1.0000
@@ -32,15 +30,13 @@ Standard Deviation: 0.0000
 Best Score: 1.0000
 Worst Score: 1.0000
 
-Test Accuracy: 1.0000
-
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1604  |   0    |
+|          p           |  4034  |   0    |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
 Recall score: 1.0000
@@ -56,15 +52,13 @@ Standard Deviation: 0.0000
 Best Score: 1.0000
 Worst Score: 1.0000
 
-Test Accuracy: 1.0000
-
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1604  |   0    |
+|          p           |  4034  |   0    |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
 Recall score: 1.0000
@@ -75,25 +69,23 @@ F1 score: 1.0000
 #############################################################################
 Test case for 2 ID3 trees and 8 SVM classifiers with regularisation parameter 0.5
 
-Mean Accuracy: 1.0000
-Standard Deviation: 0.0000
+Mean Accuracy: 0.9998
+Standard Deviation: 0.0005
 Best Score: 1.0000
-Worst Score: 1.0000
-
-Test Accuracy: 1.0000
+Worst Score: 0.9988
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1604  |   0    |
+|          p           |  4032  |   2    |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
-Recall score: 1.0000
-Precision score: 1.0000
-F1 score: 1.0000
+Recall score: 0.9998
+Precision score: 0.9998
+F1 score: 0.9998
 
 
 #############################################################################
@@ -104,15 +96,13 @@ Standard Deviation: 0.0000
 Best Score: 1.0000
 Worst Score: 1.0000
 
-Test Accuracy: 1.0000
-
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1604  |   0    |
+|          p           |  4034  |   0    |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
 Recall score: 1.0000
@@ -128,15 +118,13 @@ Standard Deviation: 0.0000
 Best Score: 1.0000
 Worst Score: 1.0000
 
-Test Accuracy: 1.0000
-
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1604  |   0    |
+|          p           |  4034  |   0    |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
 Recall score: 1.0000
@@ -147,214 +135,196 @@ F1 score: 1.0000
 #############################################################################
 Test case for 5 ID3 trees and 5 SVM classifiers with regularisation parameter 0.5
 
-Mean Accuracy: 0.9954
-Standard Deviation: 0.0028
-Best Score: 0.9982
-Worst Score: 0.9926
-
-Test Accuracy: 0.9954
+Mean Accuracy: 0.9975
+Standard Deviation: 0.0030
+Best Score: 1.0000
+Worst Score: 0.9920
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1589  |   15   |
+|          p           |  4014  |   20   |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
-Recall score: 0.9954
-Precision score: 0.9954
-F1 score: 0.9954
+Recall score: 0.9976
+Precision score: 0.9975
+F1 score: 0.9975
 
 
 #############################################################################
 Test case for 5 ID3 trees and 5 SVM classifiers with regularisation parameter 1
 
-Mean Accuracy: 0.9938
-Standard Deviation: 0.0049
-Best Score: 0.9988
-Worst Score: 0.9889
-
-Test Accuracy: 0.9938
+Mean Accuracy: 0.9968
+Standard Deviation: 0.0038
+Best Score: 1.0000
+Worst Score: 0.9902
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1584  |   20   |
+|          p           |  4008  |   26   |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
-Recall score: 0.9938
-Precision score: 0.9939
-F1 score: 0.9938
+Recall score: 0.9968
+Precision score: 0.9968
+F1 score: 0.9968
 
 
 #############################################################################
 Test case for 5 ID3 trees and 5 SVM classifiers with regularisation parameter 5
 
-Mean Accuracy: 0.9985
-Standard Deviation: 0.0015
+Mean Accuracy: 0.9959
+Standard Deviation: 0.0070
 Best Score: 1.0000
-Worst Score: 0.9969
-
-Test Accuracy: 0.9985
+Worst Score: 0.9822
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1599  |   5    |
+|          p           |  4001  |   33   |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
-Recall score: 0.9985
-Precision score: 0.9985
-F1 score: 0.9985
+Recall score: 0.9959
+Precision score: 0.9961
+F1 score: 0.9959
 
 
 #############################################################################
 Test case for 7 ID3 trees and 3 SVM classifiers with regularisation parameter 0.5
 
-Mean Accuracy: 0.9483
-Standard Deviation: 0.0092
-Best Score: 0.9575
-Worst Score: 0.9391
-
-Test Accuracy: 0.9483
+Mean Accuracy: 0.9732
+Standard Deviation: 0.0128
+Best Score: 0.9920
+Worst Score: 0.9520
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1440  |  164   |
+|          p           |  3817  |  217   |
 ------------------------------------------
-|          e           |   4    |  1642  |
+|          e           |   1    |  4090  |
 ------------------------------------------
 
-Recall score: 0.9483
-Precision score: 0.9526
-F1 score: 0.9481
+Recall score: 0.9730
+Precision score: 0.9749
+F1 score: 0.9731
 
 
 #############################################################################
 Test case for 7 ID3 trees and 3 SVM classifiers with regularisation parameter 1
 
-Mean Accuracy: 0.9874
-Standard Deviation: 0.0114
-Best Score: 0.9988
-Worst Score: 0.9760
-
-Test Accuracy: 0.9874
+Mean Accuracy: 0.9641
+Standard Deviation: 0.0161
+Best Score: 0.9858
+Worst Score: 0.9422
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1563  |   41   |
+|          p           |  3742  |  292   |
 ------------------------------------------
-|          e           |   0    |  1646  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
-Recall score: 0.9874
-Precision score: 0.9877
-F1 score: 0.9874
+Recall score: 0.9639
+Precision score: 0.9670
+F1 score: 0.9640
 
 
 #############################################################################
 Test case for 7 ID3 trees and 3 SVM classifiers with regularisation parameter 5
 
-Mean Accuracy: 0.9680
-Standard Deviation: 0.0092
-Best Score: 0.9772
-Worst Score: 0.9588
-
-Test Accuracy: 0.9680
+Mean Accuracy: 0.9851
+Standard Deviation: 0.0068
+Best Score: 0.9914
+Worst Score: 0.9754
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1507  |   97   |
+|          p           |  3913  |  121   |
 ------------------------------------------
-|          e           |   7    |  1639  |
+|          e           |   0    |  4091  |
 ------------------------------------------
 
-Recall score: 0.9680
-Precision score: 0.9694
-F1 score: 0.9680
+Recall score: 0.9849
+Precision score: 0.9858
+F1 score: 0.9851
 
 
 #############################################################################
 Test case for 10 ID3 trees and 0 SVM classifiers with regularisation parameter 0.5
 
-Mean Accuracy: 0.9231
-Standard Deviation: 0.0234
-Best Score: 0.9465
-Worst Score: 0.8997
-
-Test Accuracy: 0.9231
+Mean Accuracy: 0.9282
+Standard Deviation: 0.0169
+Best Score: 0.9557
+Worst Score: 0.9108
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1364  |  240   |
+|          p           |  3479  |  555   |
 ------------------------------------------
-|          e           |   10   |  1636  |
+|          e           |   28   |  4063  |
 ------------------------------------------
 
-Recall score: 0.9231
-Precision score: 0.9316
-F1 score: 0.9226
+Recall score: 0.9278
+Precision score: 0.9363
+F1 score: 0.9278
 
 
 #############################################################################
 Test case for 10 ID3 trees and 0 SVM classifiers with regularisation parameter 1
 
-Mean Accuracy: 0.9289
-Standard Deviation: 0.0188
+Mean Accuracy: 0.9195
+Standard Deviation: 0.0192
 Best Score: 0.9477
-Worst Score: 0.9102
-
-Test Accuracy: 0.9289
+Worst Score: 0.8978
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1377  |  227   |
+|          p           |  3413  |  621   |
 ------------------------------------------
-|          e           |   4    |  1642  |
+|          e           |   33   |  4058  |
 ------------------------------------------
 
-Recall score: 0.9289
-Precision score: 0.9371
-F1 score: 0.9285
+Recall score: 0.9195
+Precision score: 0.9297
+F1 score: 0.9190
 
 
 #############################################################################
 Test case for 10 ID3 trees and 0 SVM classifiers with regularisation parameter 5
 
-Mean Accuracy: 0.9191
-Standard Deviation: 0.0065
-Best Score: 0.9255
-Worst Score: 0.9126
-
-Test Accuracy: 0.9191
+Mean Accuracy: 0.9370
+Standard Deviation: 0.0226
+Best Score: 0.9686
+Worst Score: 0.9083
 
 Confusion Matrix:
 ------------------------------------------
 |  Predicted \ Actual  |   p    |   e    |
 ------------------------------------------
-|          p           |  1347  |  257   |
+|          p           |  3543  |  491   |
 ------------------------------------------
-|          e           |   6    |  1640  |
+|          e           |   21   |  4070  |
 ------------------------------------------
 
-Recall score: 0.9191
-Precision score: 0.9292
-F1 score: 0.9185
+Recall score: 0.9361
+Precision score: 0.9444
+F1 score: 0.9365

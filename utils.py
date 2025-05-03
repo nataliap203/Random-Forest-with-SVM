@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import confusion_matrix, f1_score, recall_score, precision_score
 
 
-def make_raport(true: pd.Series, preds: pd.Series, label_range, means: dict, id3: int, svms: int, output_file: str, param_c):
+def make_raport(true: pd.Series, preds: pd.Series, label_range, means: dict, id3: int, svms: int, output_file: str, param_c, f1, prec, rec):
     with open(output_file, 'a', encoding='utf-8') as f:
         f.write("\n")
         f.write("\n")
@@ -34,13 +34,10 @@ def make_raport(true: pd.Series, preds: pd.Series, label_range, means: dict, id3
             f.write(row_str)
             f.write(separator)
 
-        recall = recall_score(true, preds, average='weighted')
-        f.write(f"\nRecall score: {recall:.4f}\n")
+        f.write(f"\nRecall score: {rec:.4f}\n")
 
-        precision = precision_score(true, preds, average='weighted')
-        f.write(f"Precision score: {precision:.4f}\n")
+        f.write(f"Precision score: {prec:.4f}\n")
 
-        f1 = f1_score(true, preds, average='weighted')
         f.write(f"F1 score: {f1:.4f}\n")
         f.close
 
@@ -49,20 +46,35 @@ def study_case(n_ID3: int, n_SVM: int, X, y, iterations: int, param_c):
     overall_preds = pd.Series(dtype=int)
     overall_true = pd.Series(dtype=int)
     accuracies = []
+    recalls= []
+    precisions = []
+    f1s = []
+    encoder = LabelEncoder()
+    encoder.fit_transform(y)
 
     for i in range(iterations):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42 + i * 2)
-        encoder = LabelEncoder()
 
-        y_train_enc = pd.Series(encoder.fit_transform(y_train))
+        y_train_enc = pd.Series(encoder.transform(y_train))
         y_test_enc = pd.Series(encoder.transform(y_test))
 
         forest = RandomForest(num_ID3=n_ID3, num_SVM=n_SVM, svm_regularization=param_c)
         forest.fit(X_train, y_train_enc)
         predictions = forest.predict(X_test)
 
+        pd.Series(encoder.inverse_transform(predictions))
+
         acc = accuracy_score(y_test_enc, predictions)
         accuracies.append(acc)
+
+        rec = recall_score(y_test_enc, predictions, average='macro')
+        recalls.append(rec)
+
+        prec = precision_score(y_test_enc, predictions, average='macro')
+        precisions.append(prec)
+
+        f1 = f1_score(y_test_enc, predictions, average='macro')
+        f1s.append(f1)
 
         overall_preds = pd.concat([overall_preds, pd.Series(predictions)])
         overall_true = pd.concat([overall_true, y_test_enc])
@@ -71,6 +83,10 @@ def study_case(n_ID3: int, n_SVM: int, X, y, iterations: int, param_c):
     std_acc = np.std(accuracies)
     max_acc = np.max(accuracies)
     min_acc = np.min(accuracies)
+    
+    mean_f1 = np.mean(f1s)
+    mean_prec = np.mean(precisions)
+    mean_rec = np.mean(recalls)
 
 
     return (
@@ -81,5 +97,8 @@ def study_case(n_ID3: int, n_SVM: int, X, y, iterations: int, param_c):
             'std': std_acc,
             'min': min_acc,
             'max': max_acc
-        }
+        },
+        mean_f1,
+        mean_prec,
+        mean_rec
     )

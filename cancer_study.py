@@ -22,6 +22,5 @@ def cancer_grid():
     for m in m_estimators:
         for ratio in id3_ratio:
             for param_c in c:
-                pred_labels, true_labels, cases = study_case(int(m*ratio), m-int(m*ratio), X, y, 2, param_c)
-                make_raport(true_labels, pred_labels, label_range, cases,  int(m*ratio),  m-int(m*ratio), "RAPORTS/cancer.txt", param_c)
-
+                pred_labels, true_labels, cases, f1, prec, rec  = study_case(int(m*ratio), m-int(m*ratio), X, y, 5, param_c)
+                make_raport(true_labels, pred_labels, label_range, cases,  int(m*ratio),  m-int(m*ratio), "RAPORTS/cancer.txt", param_c, f1, prec, rec)
