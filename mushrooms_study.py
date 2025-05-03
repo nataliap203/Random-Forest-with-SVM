@@ -8,6 +8,7 @@ def mushrooms_grid():
     # m_estimators = [10, 25, 50, 75, 100]
     m_estimators = [10]
     id3_ratio = [0.0, 0.25, 0.5, 0.75, 1.0]
+    c = [0.5, 1, 5]
 
     mushrooms_df = pd.read_csv("DATA/mushrooms.csv")
     mushrooms_df = mushrooms_df.iloc[:, ::-1]
@@ -21,7 +22,7 @@ def mushrooms_grid():
 
     for m in m_estimators:
         for ratio in id3_ratio:
-            pred_labels, true_labels, cases = study_case(int(m*ratio), m-int(m*ratio), X, y, 2)
-
-            make_raport(true_labels, pred_labels, label_range, cases,  int(m*ratio),  m-int(m*ratio), "RAPORTS/shrooms.txt")
+            for param_c in c:
+                pred_labels, true_labels, cases = study_case(int(m*ratio), m-int(m*ratio), X, y, 2, param_c)
+                make_raport(true_labels, pred_labels, label_range, cases,  int(m*ratio),  m-int(m*ratio), "RAPORTS/shrooms.txt", param_c)
 
