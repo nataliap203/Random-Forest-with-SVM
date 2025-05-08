@@ -1,10 +1,12 @@
 
 from utils import study_case, make_raport
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def mushrooms_grid():
-    with open("RAPORTS/shrooms.txt", 'w', encoding='utf-8') as f:
-        f.write("###### MUSHROOMS ######")
+    with open("RAPORTS/shrooms.jsonl", 'w', encoding='utf-8') as f:
+        f.close()
     # m_estimators = [10, 25, 50, 75, 100]
     m_estimators = [10]
     id3_ratio = [0.0, 0.25, 0.5, 0.75, 1.0]
@@ -23,6 +25,12 @@ def mushrooms_grid():
     for m in m_estimators:
         for ratio in id3_ratio:
             for param_c in c:
-                pred_labels, true_labels, cases, f1, prec, rec  = study_case(int(m*ratio), m-int(m*ratio), X, y, 5, param_c)
-                make_raport(true_labels, pred_labels, label_range, cases,  int(m*ratio),  m-int(m*ratio), "RAPORTS/shrooms.txt", param_c, f1, prec, rec)
+                matrix, cases, f1, prec, rec  = study_case(int(m*ratio), m-int(m*ratio), X, y, 5, param_c, label_range)
+                make_raport(cases,  int(m*ratio),  m-int(m*ratio), "RAPORTS/shrooms.jsonl", param_c, f1, prec, rec)
+                print(type(matrix))
+                sns.heatmap(matrix, annot=True, fmt="d", cmap="mako",
+                xticklabels=label_range, yticklabels=label_range)
+                plt.title(f"m = {m}, num_id3 = {int(m*ratio)}, num_svm = {m-int(m*ratio)}, param_c = {param_c}")
+                plt.savefig(f"SHROOM_MATRIXES/{m}_{int(m*ratio)}_{m-int(m*ratio)}_{param_c}.png")
+
 
