@@ -1,11 +1,14 @@
-
-from utils import study_case, make_raport
+import os
+from study_scripts.utils import study_case, make_raport
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def cancer_grid():
-    with open("RAPORTS/cancer.jsonl", 'w', encoding='utf-8') as f:
+def cancer_grid(RAPORTS_DIR_NAME="RAPORTS"):
+    MATRIX_DIR_NAME = "CANCER_MATRIXES"
+    os.makedirs(MATRIX_DIR_NAME, exist_ok=True)
+
+    with open(f"{RAPORTS_DIR_NAME}/cancer.jsonl", 'w', encoding='utf-8') as f:
         f.close()
     # m_estimators = [10, 25, 50, 75, 100]
     m_estimators = [10]
@@ -30,5 +33,5 @@ def cancer_grid():
                 sns.heatmap(matrix, annot=True, fmt="d", cmap="mako",
                 xticklabels=label_range, yticklabels=label_range)
                 plt.title(f"m = {m}, num_id3 = {int(m*ratio)}, num_svm = {m-int(m*ratio)}, param_c = {param_c}")
-                plt.savefig(f"CANCER_MATRIXES/{m}_{int(m*ratio)}_{m-int(m*ratio)}_{param_c}.png")
+                plt.savefig(f"{MATRIX_DIR_NAME}/{m}_{int(m*ratio)}_{m-int(m*ratio)}_{param_c}.png")
 
