@@ -1,4 +1,4 @@
-from ID3.ID3 import ID3
+from id3.ID3 import ID3
 import pandas as pd
 import random
 import numpy as np

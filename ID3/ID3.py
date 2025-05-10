@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-from ID3.node import Node
-from ID3.utils import find_best_split, get_majority_class
+from id3.node import Node
+from id3.utils import find_best_split, get_majority_class
 
 class ID3():
     def __init__(self, max_depth=None):
