@@ -78,8 +78,7 @@ def run_grid(X: pd.DataFrame, y: pd.Series, iterations: int, label_range: list, 
 
     MATRIX_DIR_NAME = f"{dataset_name}_matrixes"
     os.makedirs(MATRIX_DIR_NAME, exist_ok=True)
-    # n_models = [10, 25, 50, 75, 100]
-    n_models = [10]
+    n_models = [10, 25, 50, 75, 100]
     id3_ratio = [0.0, 0.25, 0.5, 0.75, 1.0]
     c = [0.5, 1, 5]
 
