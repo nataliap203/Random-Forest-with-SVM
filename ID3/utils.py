@@ -3,8 +3,7 @@ import pandas as pd
 from collections import Counter
 
 def calculate_entropy(y):
-    counts = Counter(y) # each class counts
-
+    counts = Counter(y)
     total_count = len(y)
     entropy = 0.0
 
@@ -13,7 +12,6 @@ def calculate_entropy(y):
 
     for count in counts.values():
         p_i = count / total_count
-
         if p_i >0:
             entropy -= p_i * np.log2(p_i)
 
