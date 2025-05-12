@@ -1,4 +1,4 @@
-from study_scripts.utils import run_grid
+from study_scripts.utils import run_grid, forest_comparision
 import pandas as pd
 
 def cancer_study(iterations: int = 25, raports_dir_name: str = "RAPORTS"):
@@ -14,3 +14,4 @@ def cancer_study(iterations: int = 25, raports_dir_name: str = "RAPORTS"):
     label_range = ["M", "B"]
 
     run_grid(X, y, iterations, label_range, DATASET_NAME, raports_dir_name)
+    forest_comparision(X, y, iterations, label_range, DATASET_NAME, raports_dir_name)

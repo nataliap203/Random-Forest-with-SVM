@@ -1,4 +1,4 @@
-from study_scripts.utils import run_grid
+from study_scripts.utils import run_grid, forest_comparision
 import pandas as pd
 
 def wine_study(iterations: int = 25, raports_dir_name: 25 = "RAPORTS"):
@@ -15,3 +15,4 @@ def wine_study(iterations: int = 25, raports_dir_name: 25 = "RAPORTS"):
     label_range = list(range(1, 11))
 
     run_grid(X, y, iterations, label_range, DATASET_NAME, raports_dir_name)
+    forest_comparision(X, y, iterations, label_range, DATASET_NAME, raports_dir_name)
