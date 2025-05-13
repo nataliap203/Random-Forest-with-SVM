@@ -3,14 +3,21 @@ import numpy as np
 from id3.node import Node
 from id3.utils import find_best_split, get_majority_class
 
-class ID3():
+
+class ID3:
     def __init__(self, max_depth=None):
         self.max_depth = max_depth
         self.root = None
         self._feature_names = None
         self._target_name = None
 
-    def _build_tree(self, data: pd.DataFrame, feature_names: list, target_name: str, current_depth: int = 0):
+    def _build_tree(
+        self,
+        data: pd.DataFrame,
+        feature_names: list,
+        target_name: str,
+        current_depth: int = 0,
+    ):
         y = data[target_name]
         num_unique_classes = y.nunique()
 
@@ -24,7 +31,9 @@ class ID3():
         if self.max_depth is not None and current_depth >= self.max_depth:
             return Node(value=get_majority_class(y), is_leaf=True)
 
-        best_feature, best_threshold, max_info_gain = find_best_split(data, feature_names, target_name)
+        best_feature, best_threshold, max_info_gain = find_best_split(
+            data, feature_names, target_name
+        )
 
         if max_info_gain <= 0:
             return Node(value=get_majority_class(y), is_leaf=True)
@@ -39,9 +48,13 @@ class ID3():
             for value in unique_values:
                 subset = data[data[best_feature] == value]
                 if len(subset) > 0:
-                    node.children[value] = self._build_tree(subset, remaining_features, target_name, current_depth+1)
+                    node.children[value] = self._build_tree(
+                        subset, remaining_features, target_name, current_depth + 1
+                    )
                 else:
-                    node.children[value] = Node(value=get_majority_class(y), is_leaf=True)
+                    node.children[value] = Node(
+                        value=get_majority_class(y), is_leaf=True
+                    )
         else:
             subset_left = data[data[best_feature] <= best_threshold]
             subset_right = data[data[best_feature] > best_threshold]
@@ -50,14 +63,22 @@ class ID3():
             split_key_right = f">{best_threshold}"
 
             if len(subset_left) > 0:
-                node.children[split_key_left] = self._build_tree(subset_left, remaining_features, target_name, current_depth+1)
+                node.children[split_key_left] = self._build_tree(
+                    subset_left, remaining_features, target_name, current_depth + 1
+                )
             else:
-                node.children[split_key_left] = Node(value=get_majority_class(y), is_leaf=True)
+                node.children[split_key_left] = Node(
+                    value=get_majority_class(y), is_leaf=True
+                )
 
             if len(subset_right) > 0:
-                node.children[split_key_right] = self._build_tree(subset_right, remaining_features, target_name, current_depth+1)
+                node.children[split_key_right] = self._build_tree(
+                    subset_right, remaining_features, target_name, current_depth + 1
+                )
             else:
-                node.children[split_key_right] = Node(value=get_majority_class(y), is_leaf=True)
+                node.children[split_key_right] = Node(
+                    value=get_majority_class(y), is_leaf=True
+                )
 
         return node
 
@@ -71,15 +92,17 @@ class ID3():
         try:
             self._target_name = y.name
             if self._target_name is None:
-                self._target_name = 'target'
+                self._target_name = "target"
                 y.name = self._target_name
         except AttributeError:
-            self._target_name = 'target'
+            self._target_name = "target"
             y.name = self._target_name
 
         data = pd.concat([X, y], axis=1)
 
-        self.root = self._build_tree(data, self._feature_names, self._target_name, current_depth=0)
+        self.root = self._build_tree(
+            data, self._feature_names, self._target_name, current_depth=0
+        )
         return self
 
     def _predict_sample(self, node: Node, sample: pd.Series):
@@ -90,7 +113,9 @@ class ID3():
             try:
                 sample_value = sample[feature]
             except KeyError:
-                print(f"Error: No feature '{feature}' in sample. Cannot continue prediction.")
+                print(
+                    f"Error: No feature '{feature}' in sample. Cannot continue prediction."
+                )
                 return None
 
             if threshold is None:
@@ -100,7 +125,9 @@ class ID3():
                     print(f"Error: Unknown value '{sample_value}' for '{feature}'.")
                     return None
             else:
-                split_key = f"<={threshold}" if sample_value <= threshold else f">{threshold}"
+                split_key = (
+                    f"<={threshold}" if sample_value <= threshold else f">{threshold}"
+                )
 
                 if split_key in node.children:
                     node = node.children[split_key]
