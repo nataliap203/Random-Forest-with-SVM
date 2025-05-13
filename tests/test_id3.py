@@ -4,7 +4,7 @@ from id3.ID3 import ID3
 
 
 def test_nominal_data_comparision():
-    data = pd.read_csv("tests/data/test_data_nominal.csv")
+    data = pd.read_csv("tests/test_data/test_data_nominal.csv")
     X = data.drop("PlayTennis", axis=1)
     y = data["PlayTennis"]
     categorical_columns = list(X.select_dtypes(include=("object", "category")).columns)
@@ -24,7 +24,7 @@ def test_nominal_data_comparision():
 
 
 def test_numeric_data_comparision():
-    data = pd.read_csv("tests/data/test_data_numeric.csv")
+    data = pd.read_csv("tests/test_data/test_data_numeric.csv")
     X = data.drop("Target", axis=1)
     y = data["Target"]
 
@@ -42,7 +42,7 @@ def test_numeric_data_comparision():
 
 
 def test_combined_data_comparision():
-    data = pd.read_csv("tests/data/test_data_combined.csv")
+    data = pd.read_csv("tests/test_data/test_data_combined.csv")
     X = data.drop("Target", axis=1)
     y = data["Target"]
     categorical_columns = list(X.select_dtypes(include=("object", "category")).columns)
@@ -62,7 +62,7 @@ def test_combined_data_comparision():
 
 
 def test_multiclass_data_comparision():
-    data = pd.read_csv("tests/data/test_data_multiclass.csv")
+    data = pd.read_csv("tests/test_data/test_data_multiclass.csv")
     X = data.drop("Target", axis=1)
     y = data["Target"]
     categorical_columns = list(X.select_dtypes(include=("object", "category")).columns)

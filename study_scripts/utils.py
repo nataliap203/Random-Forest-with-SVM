@@ -122,7 +122,7 @@ def forest_comparision(X: pd.DataFrame, y: pd.Series, iterations: int, label_ran
     n_models = [10, 25, 50, 75, 100]
 
     for n in n_models:
-        forest = RandomForestClassifier(n_estimators=n, criterion="entropy", max_depth=10, bootstrap=True)
+        forest = RandomForestClassifier(n_estimators=n, criterion="entropy", max_depth=5, bootstrap=True, max_features="sqrt")
         matrix, acc, f1, prec, rec, train_time, pred_time  = study_case(forest, X, y, iterations, label_range)
         make_raport(acc, n, 0, f"{RAPORTS_DIR_NAME}/library_{dataset_name}.jsonl", "NaN", f1, prec, rec, train_time, pred_time)
         plt.figure(figsize=(6,4))
