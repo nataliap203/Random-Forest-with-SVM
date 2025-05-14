@@ -1,6 +1,5 @@
 from id3.ID3 import ID3
 import pandas as pd
-import random
 import numpy as np
 from sklearn.svm import SVC
 from scipy.stats import mode
@@ -11,7 +10,7 @@ class RandomForest:
         self,
         num_ID3: int,
         num_SVM: int,
-        id3_max_depth: int = 5,
+        id3_max_depth: int = 10,
         svm_regularization: float = 1.0,
         svm_kernel: str = "rbf",
     ):
@@ -28,19 +27,11 @@ class RandomForest:
 
     def fit(self, X: pd.DataFrame, y: pd.Series):
         X.reset_index(drop=True, inplace=True)
-        feature_names = list(X.columns)
-        feature_names_subset_len = max(1, int(np.floor(np.sqrt(len(feature_names)))))
+        np.random.seed(42)
 
         for ID3_model in self.tree_models:
-            features_names_subset = random.sample(
-                feature_names, feature_names_subset_len
-            )
-            X_subset = X[features_names_subset]
-
-            bootstrap_ids = np.random.randint(
-                0, X_subset.shape[0], size=X_subset.shape[0]
-            )
-            X_bootstraped = X_subset.iloc[bootstrap_ids]
+            bootstrap_ids = np.random.randint(0, X.shape[0], size=X.shape[0])
+            X_bootstraped = X.iloc[bootstrap_ids]
             y_bootstraped = y.iloc[bootstrap_ids]
 
             ID3_model.fit(X_bootstraped, y_bootstraped)

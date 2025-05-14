@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
+import random
+
 
 def calculate_entropy(y):
     counts = Counter(y)
@@ -12,13 +14,15 @@ def calculate_entropy(y):
 
     for count in counts.values():
         p_i = count / total_count
-        if p_i >0:
+        if p_i > 0:
             entropy -= p_i * np.log2(p_i)
 
     return entropy
 
 
-def calculate_info_gain(data: pd.DataFrame, feature_name: str, target_name: str, threshold=None):
+def calculate_info_gain(
+    data: pd.DataFrame, feature_name: str, target_name: str, threshold=None
+):
     total_entropy = calculate_entropy(data[target_name])
 
     weighted_entropy_after_split = 0
@@ -60,33 +64,53 @@ def calculate_info_gain(data: pd.DataFrame, feature_name: str, target_name: str,
 
 
 def find_best_split(data: pd.DataFrame, feature_names: list, target_name: str):
-    best_feature = None
-    best_threshold = None
+    best_features = []
+    best_thresholds = []
     max_info_gain = -1
 
     for feature in feature_names:
         if pd.api.types.is_numeric_dtype(data[feature]):
             unique_values = sorted(data[feature].unique())
             if len(unique_values) > 1:
-                potential_thresholds = [(unique_values[i] + unique_values[i+1]) / 2
-                                        for i in range(len(unique_values) - 1)]
+                potential_thresholds = [
+                    (unique_values[i] + unique_values[i + 1]) / 2.0
+                    for i in range(len(unique_values) - 1)
+                ]
 
                 for threshold in potential_thresholds:
-                    current_info_gain = calculate_info_gain(data, feature, target_name, threshold=threshold)
+                    current_info_gain = calculate_info_gain(
+                        data, feature, target_name, threshold=threshold
+                    )
                     if current_info_gain > max_info_gain:
                         max_info_gain = current_info_gain
-                        best_feature = feature
-                        best_threshold = threshold
+                        best_features = [feature]
+                        best_thresholds = [threshold]
+                    elif current_info_gain == max_info_gain:
+                        best_features.append(feature)
+                        best_thresholds.append(threshold)
         else:
-            current_info_gain = calculate_info_gain(data, feature, target_name, threshold=None)
+            current_info_gain = calculate_info_gain(
+                data, feature, target_name, threshold=None
+            )
             if current_info_gain > max_info_gain:
                 max_info_gain = current_info_gain
-                best_feature = feature
-                best_threshold = None
+                best_features = [feature]
+                best_thresholds = None
+            elif current_info_gain == max_info_gain:
+                best_features.append(feature)
+                best_thresholds = None
 
+    if len(best_features) > 0:
+        best_feature_idx = np.random.randint(0, len(best_features))
+        best_feature = best_features[best_feature_idx]
+        if best_thresholds is not None:
+            best_threshold = best_thresholds[best_feature_idx]
+    else:
+        best_feature = None
+        best_threshold = None
 
     return best_feature, best_threshold, max_info_gain
 
-def get_majority_class(y):
-    counts = Counter(y)
-    return counts.most_common(1)[0][0] if counts else None
+
+def get_majority_class(y: pd.Series):
+    return y.mode()[0]

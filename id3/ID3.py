@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from id3.node import Node
 from id3.utils import find_best_split, get_majority_class
+import random
 
 
 class ID3:
@@ -31,8 +32,11 @@ class ID3:
         if self.max_depth is not None and current_depth >= self.max_depth:
             return Node(value=get_majority_class(y), is_leaf=True)
 
+        feature_names_subset_len = max(1, int(np.floor(np.sqrt(len(feature_names)))))
+        features_names_subset = random.sample(feature_names, feature_names_subset_len)
+
         best_feature, best_threshold, max_info_gain = find_best_split(
-            data, feature_names, target_name
+            data, features_names_subset, target_name
         )
 
         if max_info_gain <= 0:
@@ -47,14 +51,10 @@ class ID3:
             unique_values = data[best_feature].unique()
             for value in unique_values:
                 subset = data[data[best_feature] == value]
-                if len(subset) > 0:
-                    node.children[value] = self._build_tree(
-                        subset, remaining_features, target_name, current_depth + 1
-                    )
-                else:
-                    node.children[value] = Node(
-                        value=get_majority_class(y), is_leaf=True
-                    )
+
+                node.children[value] = self._build_tree(
+                    subset, remaining_features, target_name, current_depth + 1
+                )
         else:
             subset_left = data[data[best_feature] <= best_threshold]
             subset_right = data[data[best_feature] > best_threshold]
@@ -62,23 +62,13 @@ class ID3:
             split_key_left = f"<={best_threshold}"
             split_key_right = f">{best_threshold}"
 
-            if len(subset_left) > 0:
-                node.children[split_key_left] = self._build_tree(
-                    subset_left, remaining_features, target_name, current_depth + 1
-                )
-            else:
-                node.children[split_key_left] = Node(
-                    value=get_majority_class(y), is_leaf=True
-                )
+            node.children[split_key_left] = self._build_tree(
+                subset_left, remaining_features, target_name, current_depth + 1
+            )
 
-            if len(subset_right) > 0:
-                node.children[split_key_right] = self._build_tree(
-                    subset_right, remaining_features, target_name, current_depth + 1
-                )
-            else:
-                node.children[split_key_right] = Node(
-                    value=get_majority_class(y), is_leaf=True
-                )
+            node.children[split_key_right] = self._build_tree(
+                subset_right, remaining_features, target_name, current_depth + 1
+            )
 
         return node
 
