@@ -96,7 +96,7 @@ def run_grid(X: pd.DataFrame, y: pd.Series, iterations: int, label_range: list, 
 
     MATRIX_DIR_NAME = f"{dataset_name}_matrixes"
     os.makedirs(MATRIX_DIR_NAME, exist_ok=True)
-    n_models = [10, 25, 50, 75, 100]
+    n_models = [1, 10, 25, 50, 75, 100]
     id3_ratio = [0.0, 0.25, 0.5, 0.75, 1.0]
     c = [1, 5, 10]
 
@@ -107,7 +107,7 @@ def run_grid(X: pd.DataFrame, y: pd.Series, iterations: int, label_range: list, 
                 matrix, acc, f1, prec, rec, train_time, pred_time  = study_case(forest, X, y, iterations, label_range)
                 make_raport(acc, int(n*ratio), n-int(n*ratio), f"{RAPORTS_DIR_NAME}/{dataset_name}.jsonl", param_c, f1, prec, rec, train_time, pred_time)
                 plt.figure(figsize=(6,4))
-                sns.heatmap(matrix, annot=True, fmt="d", cmap="mako", xticklabels=label_range, yticklabels=label_range)
+                sns.heatmap(matrix, annot=True, cmap='Oranges', fmt="d", xticklabels=label_range, yticklabels=label_range)
                 plt.title(f"n_models = {n}, num_id3 = {int(n*ratio)}, num_svm = {n-int(n*ratio)}, param_c = {param_c}")
                 plt.savefig(f"{MATRIX_DIR_NAME}/{n}_{int(n*ratio)}_{n-int(n*ratio)}_{param_c}.png")
                 plt.close()
@@ -119,14 +119,14 @@ def forest_comparision(X: pd.DataFrame, y: pd.Series, iterations: int, label_ran
 
     MATRIX_DIR_NAME = f"library_{dataset_name}_matrixes"
     os.makedirs(MATRIX_DIR_NAME, exist_ok=True)
-    n_models = [10, 25, 50, 75, 100]
+    n_models = [1, 10, 25, 50, 75, 100]
 
     for n in n_models:
-        forest = RandomForestClassifier(n_estimators=n, criterion="entropy", max_depth=10, bootstrap=True)
+        forest = RandomForestClassifier(n_estimators=n, criterion="entropy", max_depth=10, bootstrap=True, max_features="sqrt", random_state=42)
         matrix, acc, f1, prec, rec, train_time, pred_time  = study_case(forest, X, y, iterations, label_range)
         make_raport(acc, n, 0, f"{RAPORTS_DIR_NAME}/library_{dataset_name}.jsonl", "NaN", f1, prec, rec, train_time, pred_time)
         plt.figure(figsize=(6,4))
-        sns.heatmap(matrix, annot=True, fmt="d", cmap="mako", xticklabels=label_range, yticklabels=label_range)
+        sns.heatmap(matrix, annot=True, cmap='Oranges', fmt="d", xticklabels=label_range, yticklabels=label_range)
         plt.title(f"n_models = {n}, num_id3 = {n}")
         plt.savefig(f"{MATRIX_DIR_NAME}/library_{n}.png")
         plt.close()
