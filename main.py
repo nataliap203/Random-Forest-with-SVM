@@ -1,3 +1,5 @@
+# Authors: Natalia Pieczko, Antoni Grajek
+
 import os
 from study_scripts.mushrooms_study import mushrooms_study
 from study_scripts.wine_study import wine_study

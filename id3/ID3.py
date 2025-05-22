@@ -1,3 +1,5 @@
+# Authors: Natalia Pieczko, Antoni Grajek
+
 import pandas as pd
 import numpy as np
 from id3.node import Node
@@ -35,9 +37,7 @@ class ID3:
         feature_names_subset_len = max(1, int(np.floor(np.sqrt(len(feature_names)))))
         features_names_subset = random.sample(feature_names, feature_names_subset_len)
 
-        best_feature, best_threshold, max_info_gain = find_best_split(
-            data, features_names_subset, target_name
-        )
+        best_feature, best_threshold, max_info_gain = find_best_split(data, features_names_subset, target_name)
 
         if max_info_gain <= 0:
             return Node(value=get_majority_class(y), is_leaf=True)
@@ -52,9 +52,7 @@ class ID3:
             for value in unique_values:
                 subset = data[data[best_feature] == value]
 
-                node.children[value] = self._build_tree(
-                    subset, remaining_features, target_name, current_depth + 1
-                )
+                node.children[value] = self._build_tree(subset, remaining_features, target_name, current_depth + 1)
         else:
             subset_left = data[data[best_feature] <= best_threshold]
             subset_right = data[data[best_feature] > best_threshold]
@@ -62,13 +60,9 @@ class ID3:
             split_key_left = f"<={best_threshold}"
             split_key_right = f">{best_threshold}"
 
-            node.children[split_key_left] = self._build_tree(
-                subset_left, remaining_features, target_name, current_depth + 1
-            )
+            node.children[split_key_left] = self._build_tree(subset_left, remaining_features, target_name, current_depth + 1)
 
-            node.children[split_key_right] = self._build_tree(
-                subset_right, remaining_features, target_name, current_depth + 1
-            )
+            node.children[split_key_right] = self._build_tree(subset_right, remaining_features, target_name, current_depth + 1)
 
         return node
 
@@ -90,9 +84,7 @@ class ID3:
 
         data = pd.concat([X, y], axis=1)
 
-        self.root = self._build_tree(
-            data, self._feature_names, self._target_name, current_depth=0
-        )
+        self.root = self._build_tree(data, self._feature_names, self._target_name, current_depth=0)
         return self
 
     def _predict_sample(self, node: Node, sample: pd.Series):
@@ -103,9 +95,7 @@ class ID3:
             try:
                 sample_value = sample[feature]
             except KeyError:
-                print(
-                    f"Error: No feature '{feature}' in sample. Cannot continue prediction."
-                )
+                print(f"Error: No feature '{feature}' in sample. Cannot continue prediction.")
                 return None
 
             if threshold is None:
@@ -115,9 +105,7 @@ class ID3:
                     print(f"Error: Unknown value '{sample_value}' for '{feature}'.")
                     return None
             else:
-                split_key = (
-                    f"<={threshold}" if sample_value <= threshold else f">{threshold}"
-                )
+                split_key = f"<={threshold}" if sample_value <= threshold else f">{threshold}"
 
                 if split_key in node.children:
                     node = node.children[split_key]

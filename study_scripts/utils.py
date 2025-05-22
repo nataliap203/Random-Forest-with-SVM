@@ -1,3 +1,5 @@
+# Authors: Natalia Pieczko, Antoni Grajek
+
 from forest.forest import RandomForest
 import numpy as np
 import pandas as pd

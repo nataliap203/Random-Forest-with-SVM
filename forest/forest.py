@@ -1,3 +1,5 @@
+# Authors: Natalia Pieczko, Antoni Grajek
+
 from id3.ID3 import ID3
 import pandas as pd
 import numpy as np
@@ -20,10 +22,7 @@ class RandomForest:
         self.svm_kernel = svm_kernel
         self.id3_max_depth = id3_max_depth
         self.tree_models = [ID3(max_depth=self.id3_max_depth) for _ in range(num_ID3)]
-        self.SVM_models = [
-            SVC(C=self.svm_regularization, kernel=self.svm_kernel)
-            for _ in range(num_SVM)
-        ]
+        self.SVM_models = [SVC(C=self.svm_regularization, kernel=self.svm_kernel) for _ in range(num_SVM)]
 
     def fit(self, X: pd.DataFrame, y: pd.Series):
         X.reset_index(drop=True, inplace=True)

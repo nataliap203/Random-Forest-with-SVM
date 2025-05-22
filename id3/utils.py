@@ -1,6 +1,9 @@
+# Authors: Natalia Pieczko, Antoni Grajek
+
 import numpy as np
 import pandas as pd
 from collections import Counter
+
 
 def calculate_entropy(y):
     counts = Counter(y)
@@ -18,9 +21,7 @@ def calculate_entropy(y):
     return entropy
 
 
-def calculate_info_gain(
-    data: pd.DataFrame, feature_name: str, target_name: str, threshold=None
-):
+def calculate_info_gain(data: pd.DataFrame, feature_name: str, target_name: str, threshold=None):
     total_entropy = calculate_entropy(data[target_name])
 
     weighted_entropy_after_split = 0
@@ -70,15 +71,10 @@ def find_best_split(data: pd.DataFrame, feature_names: list, target_name: str):
         if pd.api.types.is_numeric_dtype(data[feature]):
             unique_values = sorted(data[feature].unique())
             if len(unique_values) > 1:
-                potential_thresholds = [
-                    (unique_values[i] + unique_values[i + 1]) / 2.0
-                    for i in range(len(unique_values) - 1)
-                ]
+                potential_thresholds = [(unique_values[i] + unique_values[i + 1]) / 2.0 for i in range(len(unique_values) - 1)]
 
                 for threshold in potential_thresholds:
-                    current_info_gain = calculate_info_gain(
-                        data, feature, target_name, threshold=threshold
-                    )
+                    current_info_gain = calculate_info_gain(data, feature, target_name, threshold=threshold)
                     if current_info_gain > max_info_gain:
                         max_info_gain = current_info_gain
                         best_features = [feature]
@@ -87,9 +83,7 @@ def find_best_split(data: pd.DataFrame, feature_names: list, target_name: str):
                         best_features.append(feature)
                         best_thresholds.append(threshold)
         else:
-            current_info_gain = calculate_info_gain(
-                data, feature, target_name, threshold=None
-            )
+            current_info_gain = calculate_info_gain(data, feature, target_name, threshold=None)
             if current_info_gain > max_info_gain:
                 max_info_gain = current_info_gain
                 best_features = [feature]

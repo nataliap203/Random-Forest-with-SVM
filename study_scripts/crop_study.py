@@ -1,3 +1,5 @@
+# Authors: Natalia Pieczko, Antoni Grajek
+
 from study_scripts.utils import run_grid, forest_comparision
 import pandas as pd
 

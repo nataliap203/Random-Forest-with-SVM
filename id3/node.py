@@ -1,3 +1,4 @@
+# Authors: Natalia Pieczko, Antoni Grajek
 class Node:
     def __init__(self, feature=None, threshold=None, children=None, value=None, is_leaf=None):
         self.feature = feature      # attribute used for split in this node
