@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-import random
-
 
 def calculate_entropy(y):
     counts = Counter(y)
